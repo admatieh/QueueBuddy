@@ -1,0 +1,18 @@
+2026-02-17 11:46:46.911 EET [28552] LOG:  starting PostgreSQL 16.11 (Ubuntu 16.11-0ubuntu0.24.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0, 64-bit
+2026-02-17 11:46:46.911 EET [28552] LOG:  listening on IPv4 address "127.0.0.1", port 5433
+2026-02-17 11:46:46.918 EET [28552] LOG:  listening on Unix socket "/home/adam/Desktop/Asset-Linker/.local/postgres/.s.PGSQL.5433"
+2026-02-17 11:46:46.927 EET [28556] LOG:  database system was shut down at 2026-02-17 11:45:47 EET
+2026-02-17 11:46:46.937 EET [28552] LOG:  database system is ready to accept connections
+2026-02-17 11:46:50.167 EET [28598] FATAL:  database "adam" does not exist
+2026-02-17 11:49:00.657 EET [29778] FATAL:  database "adam" does not exist
+2026-02-17 11:51:47.035 EET [28554] LOG:  checkpoint starting: time
+2026-02-17 11:53:26.412 EET [28554] LOG:  checkpoint complete: wrote 993 buffers (6.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=99.316 s, sync=0.041 s, total=99.378 s; sync files=331, longest=0.003 s, average=0.001 s; distance=4643 kB, estimate=4643 kB; lsn=0/197C868, redo lsn=0/197C7F8
+2026-02-17 11:56:47.437 EET [28554] LOG:  checkpoint starting: time
+2026-02-17 11:56:48.470 EET [28554] LOG:  checkpoint complete: wrote 11 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.007 s, sync=0.006 s, total=1.034 s; sync files=10, longest=0.004 s, average=0.001 s; distance=2 kB, estimate=4179 kB; lsn=0/197D090, redo lsn=0/197D058
+2026-02-17 14:55:45.137 EET [28554] LOG:  checkpoint starting: time
+2026-02-17 14:55:45.560 EET [28554] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.405 s, sync=0.005 s, total=0.423 s; sync files=5, longest=0.003 s, average=0.001 s; distance=1 kB, estimate=3761 kB; lsn=0/197D740, redo lsn=0/197D708
+2026-02-17 15:00:10.425 EET [37104] LOG:  could not receive data from client: Connection reset by peer
+2026-02-17 15:00:10.425 EET [37103] LOG:  could not receive data from client: Connection reset by peer
+2026-02-17 15:00:10.425 EET [37102] LOG:  could not receive data from client: Connection reset by peer
+2026-02-17 15:00:10.425 EET [37101] LOG:  could not receive data from client: Connection reset by peer
+2026-02-17 15:35:30.145 EET [28552] LOG:  received SIGHUP, reloading configuration files
