@@ -43,9 +43,12 @@ A live seat availability and reservation system designed to help users find and 
 3.  **Environment Configuration**:
     Create a `.env` file in the root directory with the following variables:
     ```env
-    MONGODB_URI=mongodb://localhost:27017/asset-linker
+    MONGODB_URI=you should add the mongo db link
     SESSION_SECRET=your_secret_key_here
     PORT=5000
+    JWT_SECRET=dev_secret_change_me
+    NODE_ENV=development
+
     ```
 
 4.  **Seed the Database** (Optional but recommended for first run):
