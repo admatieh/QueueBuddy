@@ -1,1 +1,0 @@
-/usr/lib/postgresql/16/bin/postgres "-D" "/home/adam/Desktop/Asset-Linker/.local/postgres" "-p" "5433" "-k" "/home/adam/Desktop/Asset-Linker/.local/postgres"

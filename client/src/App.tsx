@@ -19,7 +19,7 @@ function Router() {
       <Route path="/venues" component={VenuesPage} />
       <Route path="/venues/:id" component={SeatMapPage} />
       <Route path="/reservations" component={ReservationsPage} />
-      
+
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
