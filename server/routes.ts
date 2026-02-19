@@ -2,8 +2,10 @@ import type { Express } from "express";
 import type { Server } from "http";
 import { setupAuth } from "./auth";
 import { storage } from "./storage";
+import { upload } from "./upload";
 import { api } from "@shared/routes";
 import { z } from "zod";
+import multer from "multer";
 
 export async function registerRoutes(
   httpServer: Server,
@@ -179,6 +181,44 @@ export async function registerRoutes(
     const cancelled = await storage.cancelReservation(resId);
     if (!cancelled) return res.status(404).json({ message: "Reservation not found" });
     res.json(cancelled);
+  });
+
+  // === VENUE IMAGE UPLOAD ===
+  app.post(api.admin.uploadVenueImage.path, requireAdmin, (req, res, next) => {
+    upload.single("image")(req, res, async (err: any) => {
+      if (err) {
+        if (err instanceof multer.MulterError) {
+          if (err.code === "LIMIT_FILE_SIZE") {
+            return res.status(400).json({ message: "File too large. Maximum size is 5MB." });
+          }
+          return res.status(400).json({ message: err.message });
+        }
+        // Custom file filter error
+        return res.status(400).json({ message: err.message || "Invalid file" });
+      }
+
+      if (!req.file) {
+        return res.status(400).json({ message: "No image file provided" });
+      }
+
+      try {
+        const venueId = req.params.id;
+        const venue = await storage.getVenue(venueId);
+        if (!venue) {
+          // Clean up uploaded file if venue doesn't exist
+          const fs = await import("fs");
+          fs.unlinkSync(req.file.path);
+          return res.status(404).json({ message: "Venue not found" });
+        }
+
+        const imageUrl = `/uploads/${req.file.filename}`;
+        await storage.updateVenue(venueId, { imageUrl });
+
+        res.json({ imageUrl });
+      } catch (error) {
+        next(error);
+      }
+    });
   });
 
   return httpServer;

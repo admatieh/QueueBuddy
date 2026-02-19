@@ -180,6 +180,16 @@ export const api = {
         404: errorSchemas.notFound,
       },
     },
+    uploadVenueImage: {
+      method: "POST" as const,
+      path: "/api/admin/venues/:id/upload" as const,
+      responses: {
+        200: z.object({ imageUrl: z.string() }),
+        400: errorSchemas.validation,
+        401: errorSchemas.unauthorized,
+        404: errorSchemas.notFound,
+      },
+    },
   },
 };
 
