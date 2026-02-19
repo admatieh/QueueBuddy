@@ -28,6 +28,7 @@ export const insertVenueSchema = z.object({
     openTime: z.string().default("09:00"),
     closeTime: z.string().default("22:00"),
     imageUrl: z.string().optional(),
+    category: z.enum(["tech", "cafe", "restaurant"]).default("tech"),
 });
 
 export type Venue = {
@@ -39,6 +40,8 @@ export type Venue = {
     openTime: string;
     closeTime: string;
     imageUrl?: string;
+    category: "tech" | "cafe" | "restaurant";
+    occupiedSeats?: number;
     createdAt: string;
 };
 

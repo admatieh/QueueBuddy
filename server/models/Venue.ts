@@ -8,6 +8,7 @@ export interface IVenue extends Document {
     openTime: string;
     closeTime: string;
     imageUrl?: string;
+    category: string;
     createdAt: Date;
 }
 
@@ -19,6 +20,7 @@ const VenueSchema: Schema = new Schema({
     openTime: { type: String, default: "09:00" },
     closeTime: { type: String, default: "22:00" },
     imageUrl: { type: String },
+    category: { type: String, enum: ["tech", "cafe", "restaurant"], default: "tech", lowercase: true },
     createdAt: { type: Date, default: Date.now }
 });
 

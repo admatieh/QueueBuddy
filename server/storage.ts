@@ -58,6 +58,8 @@ export class DatabaseStorage implements IStorage {
       openTime: doc.openTime,
       closeTime: doc.closeTime,
       imageUrl: doc.imageUrl,
+      category: doc.category as any,
+      occupiedSeats: (doc as any).occupiedSeats,
       createdAt: doc.createdAt.toISOString()
     };
   }
@@ -112,8 +114,56 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getVenues(): Promise<Venue[]> {
-    const venues = await VenueModel.find().sort({ createdAt: -1 });
-    return venues.map(v => this.mapVenue(v));
+    const now = new Date();
+    const venuesWithOccupancy = await VenueModel.aggregate([
+      {
+        $lookup: {
+          from: "reservations",
+          let: { venueId: "$_id" },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ["$venueId", "$$venueId"] },
+                    { $eq: ["$status", "active"] },
+                    { $gt: ["$endTime", now] }
+                  ]
+                }
+              }
+            }
+          ],
+          as: "activeReservations"
+        }
+      },
+      {
+        $addFields: {
+          occupiedSeats: { $size: "$activeReservations" }
+        }
+      },
+      {
+        $project: {
+          activeReservations: 0
+        }
+      },
+      {
+        $sort: { createdAt: -1 }
+      }
+    ]);
+
+    return venuesWithOccupancy.map(v => ({
+      id: v._id.toString(),
+      name: v.name,
+      location: v.location,
+      description: v.description,
+      capacity: v.capacity,
+      openTime: v.openTime,
+      closeTime: v.closeTime,
+      imageUrl: v.imageUrl,
+      category: v.category,
+      occupiedSeats: v.occupiedSeats,
+      createdAt: v.createdAt.toISOString()
+    }));
   }
 
   async getVenue(id: string): Promise<Venue | undefined> {
