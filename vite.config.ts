@@ -31,6 +31,13 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
+    port: 5173,
+    strictPort: true,
+    proxy: {
+      "/api": "http://localhost:5000",
+      "/auth": "http://localhost:5000",
+      "/uploads": "http://localhost:5000",
+    },
     fs: {
       strict: true,
       deny: ["**/.*"],
